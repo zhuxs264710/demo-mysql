@@ -2,9 +2,9 @@ package com.example.demo.controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.entity.DemoEntity;
 import com.example.demo.service.DemoService;
+
 
 @RestController
 public class DemoController {
@@ -43,10 +44,10 @@ public class DemoController {
 
 	private DemoEntity randomEntity() {
 		Date date = new Date();
-		DemoEntity entity = new DemoEntity(null,"testa1", "testa2", date, "testa4", "testa5", date,
-				"testa7", "testa8", date, "testa10", "testa11", date, 
-				"testa13", "testa14", date, "testa16", 
-				"testa17", date, "testa19", "testa20",
+		DemoEntity entity = new DemoEntity(null,UUID.randomUUID().toString(), UUID.randomUUID().toString(), date, UUID.randomUUID().toString(), UUID.randomUUID().toString(), date,
+				UUID.randomUUID().toString(), UUID.randomUUID().toString(), date, UUID.randomUUID().toString(), UUID.randomUUID().toString(), date, 
+				UUID.randomUUID().toString(), UUID.randomUUID().toString(), date, UUID.randomUUID().toString(), 
+				UUID.randomUUID().toString(), date, UUID.randomUUID().toString(), UUID.randomUUID().toString(),
 				date);
 		return entity;
 	}
