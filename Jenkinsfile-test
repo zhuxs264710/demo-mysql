@@ -1,0 +1,34 @@
+pipeline {
+  agent {
+    node {
+      label 'maven'
+    }
+
+  }
+  stages {
+    stage('Checkout SCM') {
+      steps {
+        git(url: 'https://github.com/zhuxs264710/demo.git', credentialsId: 'github-id', changelog: true, poll: false, branch: 'main')
+      }
+    }
+    stage('Build and Push') {
+      steps {
+        container('maven') {
+          sh 'mvn -o -Dmaven.test.skip=true clean install'
+          sh 'docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BUILD_NUMBER .'
+          withCredentials([usernamePassword(credentialsId : 'dockerhub-id' ,passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,)]) {
+            sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
+            sh 'docker push $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BUILD_NUMBER'
+          }
+
+        }
+
+      }
+    }
+    stage('Artifacts') {
+      steps {
+        archiveArtifacts 'target/*.jar'
+      }
+    }
+  }
+}
