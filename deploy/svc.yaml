@@ -11,7 +11,7 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
-      nodePort: 30862
+      nodePort: 30863
   selector:
     app: demo-mysql-devops-env
   sessionAffinity: None
