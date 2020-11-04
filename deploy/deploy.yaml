@@ -2,19 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: demo-mysql-devops
-  name: demo-mysql-devops
+    app: demo-mysql-devops-env
+  name: demo-mysql-devops-env
   namespace: test
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   selector:
     matchLabels:
-      app: demo-mysql-devops
+      app: demo-mysql-devops-env
   template:
     metadata:
       labels:
-        app: demo-mysql-devops
+        app: demo-mysql-devops-env
     spec:
       containers:
         - image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BUILD_NUMBER
@@ -29,6 +29,8 @@ spec:
               value: $MYSQL_USERNAME
             - name: MYSQL_PASSWORD
               value: $MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              value: $MYSQL_DATABASE    
           readinessProbe:
             httpGet:
               path: /
