@@ -26,8 +26,13 @@
 </dependency>
 <dependency>
     <groupId>com.alibaba</groupId>
-    <artifactId>druid</artifactId>
+    <artifactId>druid-spring-boot-starter</artifactId>
     <version>1.2.1</version>
+</dependency>
+<dependency>
+    <groupId>org.apache.logging.log4j</groupId>
+    <artifactId>log4j-core</artifactId>
+    <version>2.13.3</version>
 </dependency>
 
 		<dependency>

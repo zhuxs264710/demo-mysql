@@ -16,15 +16,19 @@ import com.alibaba.druid.pool.DruidDataSource;
 public class DemoConfig {
 	
     //连接数据库配置文件的地址，具体查阅配置文件的结构
+// @Value("${spring.datasource.druid.driver-class-name}")
  @Value("${spring.datasource.driver-class-name}")
  private String driver;
     //连接数据库配置文件的地址，具体查阅配置文件的结构
+// @Value("${spring.datasource.druid.url}")
  @Value("${spring.datasource.url}")
  private String url;
     //连接数据库配置文件的地址，具体查阅配置文件的结构
+// @Value("${spring.datasource.druid.username}")
  @Value("${spring.datasource.username}")
  private String username;
     //连接数据库配置文件的地址，具体查阅配置文件的结构
+// @Value("${spring.datasource.druid.password}")
  @Value("${spring.datasource.password}")
  private String password;
  
@@ -64,8 +68,6 @@ public class DemoConfig {
  PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
  sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml"));
  sqlSessionFactoryBean.setTypeAliasesPackage("com.example.demo.entity.*");
- //上述classpath*:com/gitee/sunchenbin/mybatis/actable/mapping/*/*.xml固定的包路径
- //com.xxx.xxx.entity.*替换成你的实体类地址
  return sqlSessionFactoryBean;
  }
 

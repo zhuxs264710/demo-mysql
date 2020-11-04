@@ -2,25 +2,19 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: kubesphere
-    component: ks-sample-dev
-    tier: backend
-  name: ks-sample-dev
+    app: demo-mysql-devops
+  name: demo-mysql-devops
   namespace: test
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
   selector:
     matchLabels:
-      app: kubesphere
-      component: ks-sample-dev
-      tier: backend
+      app: demo-mysql-devops
   template:
     metadata:
       labels:
-        app: kubesphere
-        component: ks-sample-dev
-        tier: backend
+        app: demo-mysql-devops
     spec:
       containers:
         - image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BUILD_NUMBER

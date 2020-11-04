@@ -8,13 +8,13 @@ pipeline {
   stages {
     stage('Checkout SCM') {
       steps {
-        git(url: 'https://github.com/zhuxs264710/demo.git', credentialsId: 'github-id', changelog: true, poll: false, branch: 'main')
+        git(url: 'https://github.com/zhuxs264710/demo-mysql.git', credentialsId: 'github-id', changelog: true, poll: false, branch: 'master')
       }
     }
     stage('Build and Push') {
       steps {
         container('maven') {
-          sh 'mvn -o -Dmaven.test.skip=true clean install'
+          sh 'mvn -Dmaven.test.skip=true clean package'
           sh 'docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BUILD_NUMBER .'
           withCredentials([usernamePassword(credentialsId : 'dockerhub-id' ,passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,)]) {
             sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
@@ -28,6 +28,12 @@ pipeline {
     stage('Artifacts') {
       steps {
         archiveArtifacts 'target/*.jar'
+      }
+    }
+    stage('Deploy to DEV') {
+      steps {
+        input(message: '@admin  ', submitter: 'admin')
+        kubernetesDeploy(enableConfigSubstitution: true, deleteResource: false, kubeconfigId: 'demo-kubeconfig', configs: 'deploy/**')
       }
     }
   }
