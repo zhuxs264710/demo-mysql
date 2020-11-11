@@ -1,5 +1,7 @@
 package com.example.demo.config;
 
+import java.io.IOException;
+
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
@@ -33,10 +35,15 @@ public class DemoConfig {
  private String password;
  
  @Bean
- public PropertiesFactoryBean configProperties() throws Exception{
+ public PropertiesFactoryBean configProperties(){
  PropertiesFactoryBean propertiesFactoryBean = new PropertiesFactoryBean();
  PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
- propertiesFactoryBean.setLocations(resolver.getResources("classpath*:application.properties"));//classpath*:application.properties是mybatis的生成表配置文件
+ try {
+	propertiesFactoryBean.setLocations(resolver.getResources("classpath*:application.properties"));
+} catch (IOException e) {
+	// TODO Auto-generated catch block
+	e.printStackTrace();
+}//classpath*:application.properties是mybatis的生成表配置文件
  return propertiesFactoryBean;
  }
  

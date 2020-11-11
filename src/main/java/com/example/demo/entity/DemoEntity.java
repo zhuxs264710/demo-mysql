@@ -2,6 +2,8 @@ package com.example.demo.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.gitee.sunchenbin.mybatis.actable.annotation.Column;
 import com.gitee.sunchenbin.mybatis.actable.annotation.Table;
 import com.gitee.sunchenbin.mybatis.actable.constants.MySqlTypeConstant;
@@ -49,6 +51,7 @@ public class DemoEntity {
 	private String a2;
 
 	@Column(name = "a3", type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a3;
 
 	@Column(name = "a4", type = MySqlTypeConstant.VARCHAR, length = 111)
@@ -58,6 +61,7 @@ public class DemoEntity {
 	private String a5;
 
 	@Column(name = "a6", type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a6;
 
 	@Column(name = "a7", type = MySqlTypeConstant.VARCHAR, length = 111)
@@ -67,6 +71,7 @@ public class DemoEntity {
 	private String a8;
 
 	@Column(name = "a9", type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a9;
 
 	@Column(name = "a10", type = MySqlTypeConstant.VARCHAR, length = 111)
@@ -76,6 +81,7 @@ public class DemoEntity {
 	private String a11;
 
 	@Column(name = "a12", type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a12;
 
 	@Column(name = "a13", type = MySqlTypeConstant.VARCHAR, length = 111)
@@ -85,6 +91,7 @@ public class DemoEntity {
 	private String a14;
 
 	@Column(name = "a15", type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a15;
 	
 	@Column(name = "a16", type = MySqlTypeConstant.VARCHAR, length = 111)
@@ -94,6 +101,7 @@ public class DemoEntity {
 	private String a17;
 	
 	@Column(name = "a18",type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a18;
 	
 	@Column(name = "a19", type = MySqlTypeConstant.VARCHAR, length = 111)
@@ -103,6 +111,7 @@ public class DemoEntity {
 	private String a20;
 	
 	@Column(name = "a21",type = MySqlTypeConstant.DATETIME)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date a21;
 
 	public int getId() {

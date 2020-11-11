@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,23 +21,40 @@ public class DemoController {
 	@Autowired
 	DemoService demoService;
 
-	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	int insertDemo(DemoEntity entity) {
+	@PostMapping(value = "/insertrandom")
+	public int insertDemoRandom() {
 		
-		int id = demoService.insertDemo(this.randomEntity());
-		return id;
+		return demoService.insertDemo(this.randomEntity());
+	}
+	
+	@PostMapping(value="/insert",headers = "content-type=application/json")
+	public int insertDemo(@RequestBody DemoEntity entity) {
+		
+		return demoService.insertDemo(entity);
+		
+		
+	}
+
+	
+	
+	@PostMapping(value="/insertform",headers = "content-type=multipart/form-data")
+	public int insertDemoForm(DemoEntity entity) {
+		
+		return demoService.insertDemo(entity);
+		
+		
 	}
 
 	@GetMapping(value = "/get/{id}")
 	@ResponseBody
-	DemoEntity getDemoEntityById(@PathVariable("id") int id) {
+	public DemoEntity getDemoEntityById(@PathVariable("id") int id) {
 		DemoEntity entity = demoService.getDemoById(id);
 		return entity;
 	}
 	
-	@RequestMapping(value = "/get/all", method = RequestMethod.GET)
+	@GetMapping(value = "/get/all")
 	@ResponseBody
-	List<DemoEntity> getAllDemoEntity() {
+	public List<DemoEntity> getAllDemoEntity() {
 		List<DemoEntity> entitys = demoService.getAllDemo();
 		return entitys;
 	}

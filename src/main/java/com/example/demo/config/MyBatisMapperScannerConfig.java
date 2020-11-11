@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class MyBatisMapperScannerConfig {
  
  @Bean
- public MapperScannerConfigurer mapperScannerConfigurer() throws Exception{
+ public MapperScannerConfigurer mapperScannerConfigurer(){
   MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
    mapperScannerConfigurer.setBasePackage("com.example.demo.mapper.*;com.gitee.sunchenbin.mybatis.actable.dao.*");
   mapperScannerConfigurer.setSqlSessionFactoryBeanName("sqlSessionFactory");
