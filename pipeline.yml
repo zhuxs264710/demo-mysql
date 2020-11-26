@@ -1,0 +1,39 @@
+version: "1.1"
+stages:
+  - stage:
+      - git-checkout:
+          alias: git-checkout
+          description: 代码仓库克隆
+          params:
+            depth: 1
+  - stage:
+      - java:
+          alias: java
+          description: 针对 java 工程的编译打包任务，产出可运行镜像
+          version: "1.0"
+          params:
+            build_cmd: mvn clean package -Dmaven.test.skip=true
+            build_type: maven
+            container_type: spring-boot
+            jdk_version: "8"
+            target: ./target/myapp-0.0.1-SNAPSHOT.jar
+            workdir: ${git-checkout}
+          resources:
+            cpu: 0.2
+            mem: 1024
+  - stage:
+      - release:
+          alias: release
+          version: "1.0"
+          params:
+            dice_yml: ${git-checkout}/dice.yml
+            image:
+              demo-mysql: ${java:OUTPUT:image}
+  - stage:
+      - dice:
+          alias: dice
+          description: 用于 dice 平台部署应用服务
+          version: "1.0"
+          params:
+            release_id_path: ${release}
+            time_out: 86400
